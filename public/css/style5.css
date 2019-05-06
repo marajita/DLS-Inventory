@@ -60,7 +60,7 @@ a, a:hover, a:focus {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #00009c;
+    background: #7386D5;
     color: #fff;
     transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
     transform-origin: bottom left;
@@ -73,7 +73,7 @@ a, a:hover, a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #00009c;
+    background: #6d7fcc;
 }
 
 #sidebar ul.components {
@@ -92,7 +92,7 @@ a, a:hover, a:focus {
     display: block;
 }
 #sidebar ul li a:hover {
-    color: #00009c;
+    color: #7386D5;
     background: #fff;
 }
 
