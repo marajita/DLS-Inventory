@@ -59,6 +59,12 @@ $(document).ready(function () {
       assignedTo: null,
       assignedBy: null
     });
+
+    //reset
+    selectedSN.val(""); 
+    netId.val("");
+    comments.val("");
+
     //hide Modal
     $(".modal").modal("hide");
   }
@@ -158,7 +164,7 @@ $(document).ready(function () {
       }
       renderInventoryHistoryList(rowsToAdd);
     });
-
+    $("#selectedSN-eventHist").text(laptopData.sn);
     $("#inventoryHistoryModal").modal("show");
 
 

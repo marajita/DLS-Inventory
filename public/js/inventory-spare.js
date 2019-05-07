@@ -68,6 +68,16 @@ $(document).ready(function () {
       assignedTo: netId.val().trim(),
       assignedBy: 'user'
     });
+    //reset values
+
+    selectedSN.val(""); 
+    netId.val(""); 
+    firstName.val(""); 
+    lastName.val(""); 
+    preferredName.val(""); 
+    programName.val(""); 
+    comments.val(""); 
+
     //hide Modal
     $(".modal").modal("hide");
   }
@@ -161,7 +171,7 @@ $(document).ready(function () {
       }
       renderInventoryHistoryList(rowsToAdd);
     });
-
+    $("#selectedSN-eventHist").text(laptopData.sn);
     $("#inventoryHistoryModal").modal("show");
 
 
