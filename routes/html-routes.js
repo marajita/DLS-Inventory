@@ -16,6 +16,15 @@ module.exports = function (app) {
     res.sendFile(path.join(__dirname, "../public/dashboard.html"));
   });
 
+
+  app.get("/inventory-spare", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/inventory-spare.html"));
+  });
+
+  app.get("/inventory-assigned", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/inventory-assigned.html"));
+  });
+
   // cms route loads cms.html
   app.get("/cms", function (req, res) {
     res.sendFile(path.join(__dirname, "../public/cms.html"));

@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <!-- Our Custom CSS -->
-  <link rel="stylesheet" href="css/style5.css" media="screen" title="no title">
+  <link rel="stylesheet" href="css/style.css" media="screen" title="no title">
 
   <!-- Font Awesome JS -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
@@ -21,6 +21,9 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
     integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
   </script>
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
 
 </head>
 
@@ -34,7 +37,6 @@
       </div>
 
       <ul class="list-unstyled components">
-        <!-- <p>Dummy Heading</p> -->
         <li>
           <a href="/">Dashboard</a>
         </li>
@@ -90,35 +92,8 @@
 
       <div class="container-fluid">
         <h1 class="mt-4">Distance Learning Support</h1>
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1,001</td>
-                <td>Lorem</td>
-                <td>ipsum</td>
-                <td>dolor</td>
-                <td>sit</td>
-              </tr>
-              <tr>
-                <td>1,002</td>
-                <td>amet</td>
-                <td>consectetur</td>
-                <td>adipiscing</td>
-                <td>elit</td>
-              </tr>
-            </tbody>
-          </table>
-      </div>
+        <canvas id="pie-chart" width="800" height="350"></canvas>
+
       </div>
     </div>
 
@@ -141,6 +116,24 @@
           $('#sidebar').toggleClass('active');
           $(this).toggleClass('active');
         });
+
+        new Chart(document.getElementById("pie-chart"), {
+    type: 'pie',
+    data: {
+      labels: ["Spare", "Assigned"],
+      datasets: [{
+        label: "Laptop Counts",
+        backgroundColor: ["#1D1DC2","#7373FF"],
+        data: [30,145]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Inventory Status'
+      }
+    }
+});
       });
     </script>
 </body>

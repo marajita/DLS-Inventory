@@ -1,11 +1,12 @@
 module.exports = function(sequelize, DataTypes) {
   var Event = sequelize.define("Event", {
+    sn: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     netId: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        len: [20]
-      }
     },
     firstName: {
       type: DataTypes.STRING,
