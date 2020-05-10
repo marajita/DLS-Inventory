@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
-      len: [1]
+      len: [20]
     },
     lastName: {
       type: DataTypes.STRING,
@@ -19,13 +19,34 @@ module.exports = function(sequelize, DataTypes) {
     },
     preferredName: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       len: [20]
     },
-    program: {
+    
+    laptopSN: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       len: [20]
+    },
+    powerAdapterSN: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      len: [20]
+    },
+    dukeEmail: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      len: [50]
+    },
+    altEmail: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      len: [50]
+    },
+    programYear: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      len: [15]
     }
   });
 

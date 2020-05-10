@@ -54,9 +54,13 @@ module.exports = function (app) {
     app.get("/contact", function (req, res) {
       res.sendFile(path.join(__dirname, "../public/contact.html"));
     });
+    // student inventory
+    app.get("/template", function (req, res) {
+      res.sendFile(path.join(__dirname, "../public/template.html"));
+    });
   // template
-  app.get("/template", function (req, res) {
-    res.sendFile(path.join(__dirname, "../public/template.html"));
+  app.get("/students", function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/student-inventory.html"));
   });
 
   // template

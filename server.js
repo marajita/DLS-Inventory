@@ -29,6 +29,7 @@ require("./routes/post-api-routes.js")(app);
 require("./routes/admin-api-routes.js")(app);
 require("./routes/inventory-api-routes.js")(app);
 require("./routes/event-api-routes.js")(app);
+require("./routes/student-api-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
