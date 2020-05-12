@@ -3,9 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     netId: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        len: [20]
-      }
+      len: [20]
     },
     firstName: {
       type: DataTypes.STRING,

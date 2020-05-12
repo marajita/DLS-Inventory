@@ -42,7 +42,7 @@ module.exports = function (app) {
   app.put("/api/student", function(req, res) {
     db.Student.update(req.body, {
       where: {
-        sn: req.body.sn
+        netId: req.body.netId
       }
     }).then(function(dbStudent) {
       res.json(dbStudent);

@@ -1,14 +1,18 @@
 $(document).ready(function () {
-
+  var table;
   var dataSet = [];
 
-  getStudentInventories();
+  getStudents();
 
 
+  // Adding event listeners
+  $(document).on("click", ".edit-student", renderEditPopup);
+  $(document).on("click", ".delete-student", handleDeleteButtonPress);
+  $(document).on("click", "#addStudent", handleAddNewStudent);
+  $(document).on("click", "#editStudent", handleEditStudent);
 
-
-  // A function to handle what happens when the form is submitted to create a new Inventory
-  function handleAddNewInventory(event) {
+  // A function to handle what happens when the form is submitted to create a new Student
+  function handleAddNewStudent(event) {
     event.preventDefault();
     // Don't do anything if the fields hasn't been filled out
     if (
@@ -24,8 +28,8 @@ $(document).ready(function () {
       alert("Enter fields!");
       return;
     }
-    // Calling the upsertInventory function and passing in the value of the name input
-    upsertInventory({
+    // Calling the upsertStudent function and passing in the value of the name input
+    upsertStudent({
       sn: serialInput.val().trim(),
       powerAdapterSN: powerAdaptserialInput.val().trim()
     });
@@ -34,172 +38,195 @@ $(document).ready(function () {
     $(".modal").modal("hide");
   }
 
-  // A function for creating an Inventory. Calls getinventories upon completion
-  function upsertInventory(data) {
+  // A function for creating an Student. Calls getinventories upon completion
+  function upsertStudent(data) {
     $.post("/api/admin", data).then(getInventories);
   }
 
   // Function for creating a new list row for Inventories
-  function createInventoryRow(studentInventoryData) {
-    var studentData = [];
-    studentData.push(studentInventoryData.netId + 1);
-    studentData.push(studentInventoryData.lastName);
-    studentData.push(studentInventoryData.firstName);
-    studentData.push(studentInventoryData.preferredName);
-    studentData.push(studentInventoryData.dukeEmail);
-    studentData.push(studentInventoryData.altEmail);
-    studentData.push(studentInventoryData.laptopSN);
-    studentData.push(studentInventoryData.powerAdapterSN);
-    studentData.push(studentInventoryData.programYear);
-    console.log(studentData);
-    return studentData;
+  function createStudentRow(student) {
+    var studentData = {};
+    studentData.id = student.id;
+    studentData.netId = student.netId;
+    studentData.lastName = student.lastName;
+    studentData.firstName = student.firstName;
+    studentData.preferredName = student.preferredName;
+    studentData.dukeEmail = student.dukeEmail;
+    studentData.altEmail = student.altEmail;
+    studentData.laptopSN = student.laptopSN;
+    studentData.powerAdapterSN = student.powerAdapterSN;
+    studentData.programYear = student.programYear;
+    studentData.data = student;
+    studentData.action = "<i style='cursor:pointer' class='far fa-edit edit-student' data-toggle='modal' data-target='#editStudentModal'></i> &nbsp &nbsp | &nbsp &nbsp <i style='cursor:pointer' class='far fa-trash-alt delete-student'></i>";
+    return studentData
   }
 
-  // Function for retrieving inventories and getting them ready to be rendered to the page
-  function getStudentInventories() {
-    // dataSet = [];
-
+  // Function for retrieving inentories and getting them ready to be rendered to the page
+  function getStudents() {
     $.get("/api/students", function (data) {
       for (var i = 0; i < data.length; i++) {
-        dataSet.push(createInventoryRow(data[i]));
+        dataSet.push(createStudentRow(data[i]));
       }
-      //renderStudentInventoryList(rowsToAdd);
-      // resetting pop up values to null.
-      // serialInput.val("");
-      // powerAdaptserialInput.val("");
-      console.log("before table init");
-      console.log(dataSet);
+      initializeDatatable();
+    });
+    return dataSet;
+  }
 
-      $('#studentTable').DataTable({
-        data: dataSet,
-        columns: [{
-            title: "Net ID"
-          },
-          {
-            title: "Last Name"
-          },
-          {
-            title: "First Name"
-          },
-          {
-            title: "Preferred Name"
-          },
-          {
-            title: "Duke Email"
-          },
-          {
-            title: "Alternate Email"
-          },
-          {
-            title: "Laptop SN"
-          },
-          {
-            title: "Power Adapter SN"
-          },
-          {
-            title: "Program Year"
-          }
-        ],
-        dom: 'Bfrtip',        // element order: NEEDS BUTTON CONTAINER (B) ****
-        select: 'single',     // enable single row selection
-        responsive: true,     // enable responsiveness
-        altEditor: true,      // Enable altEditor ****
-        buttons: [{
-          text: 'Add',
-          name: 'add'        // DO NOT change name
+  async function initializeDatatable() {
+    console.log("before table init");
+    console.log(dataSet);
+
+    table = $('#studentTable').DataTable({
+      data: dataSet,
+      columns: [{
+          data: "id",
+          title: "ID"
+        }, {
+          data: "netId",
+          title: "Net ID"
         },
         {
-          extend: 'selected', // Bind to Selected row
-          text: 'Edit',
-          name: 'edit'        // DO NOT change name
+          data: "lastName",
+          title: "Last Name"
         },
         {
-          extend: 'selected', // Bind to Selected row
-          text: 'Delete',
-          name: 'delete'      // DO NOT change name
-       }],
-        initComplete: function () {
-          this.api().columns().every(function () {
-            var column = this;
-            var select = $('<select><option value=""></option></select>')
-              .appendTo($(column.footer()).empty())
-              .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex(
-                  $(this).val()
-                );
-
-                column
-                  .search(val ? '^' + val + '$' : '', true, false)
-                  .draw();
-              });
-
-            column.data().unique().sort().each(function (d, j) {
-              select.append('<option value="' + d + '">' + d + '</option>')
-            });
-          });
+          data: "firstName",
+          title: "First Name"
+        },
+        {
+          data: "preferredName",
+          title: "Preferred Name"
+        },
+        {
+          data: "dukeEmail",
+          title: "Duke Email"
+        },
+        {
+          data: "altEmail",
+          title: "Alternate Email"
+        },
+        {
+          data: "laptopSN",
+          title: "Laptop SN"
+        },
+        {
+          data: "powerAdapterSN",
+          title: "Power Adapter SN"
+        },
+        {
+          data: "programYear",
+          title: "Program Year"
+        },
+        {
+          data: "action",
+          title: "Action"
         }
-      });
+      ],
+      select: "single",
+      responsive: true, // enable responsiveness
+      initComplete: function () {
+        this.api().columns().every(function () {
+          var column = this;
+          var select = $('<select><option value=""></option></select>')
+            .appendTo($(column.footer()).empty())
+            .on('change', function () {
+              var val = $.fn.dataTable.util.escapeRegex(
+                $(this).val()
+              );
+
+              column
+                .search(val ? '^' + val + '$' : '', true, false)
+                .draw();
+            });
+
+          column.data().unique().sort().each(function (d, j) {
+            select.append('<option value="' + d + '">' + d + '</option>')
+          });
+        });
+      }
     });
   }
 
   // A function for rendering the list of inventories to the page
-  function renderStudentInventoryList(rows) {
-    studentInventoryList
-      .children()
-      .not(":last")
-      .remove();
-    studentInventoryContainer.children(".alert").remove();
-    if (rows.length) {
-      console.log(rows);
-      studentInventoryList.prepend(rows);
-    } else {
-      renderEmpty();
-    }
-  }
+  // function renderStudentStudentList(rows) {
+  //   studentList
+  //     .children()
+  //     .not(":last")
+  //     .remove();
+  //   studentContainer.children(".alert").remove();
+  //   if (rows.length) {
+  //     console.log(rows);
+  //     studentList.prepend(rows);
+  //   } else {
+  //     renderEmpty();
+  //   }
+  // }
 
   // Function for handling what to render when there are no inventories
-  function renderEmpty() {
-    var alertDiv = $("<div>");
-    alertDiv.addClass("alert alert-info");
-    alertDiv.text("No Records Found");
-    studentInventoryContainer.append(alertDiv);
-  }
+  // function renderEmpty() {
+  //   var alertDiv = $("<div>");
+  //   alertDiv.addClass("alert alert-info");
+  //   alertDiv.text("No Records Found");
+  //   studentContainer.append(alertDiv);
+  // }
 
   // Function for handling what happens when the delete button is pressed
   function handleDeleteButtonPress() {
-    var listItemData = $(this)
-      .parent("td")
-      .parent("tr")
-      .data("inventory");
-    var id = listItemData.id;
+    selectedRowData = table.row('.selected').data();
+    var id = selectedRowData.id;
     $.ajax({
       method: "DELETE",
-      url: "/api/admin/" + id
-    }).then(getInventories);
+      url: "/api/student/" + id
+    }).then(getStudents());
   }
 
-  function handleEditInventory() {
+  function handleEditStudent() {
+    console.log("Saving...");
     event.preventDefault();
-    var serialInput = $("#serialNoEdit");
-    var powerAdaptserialInput = $("#powerAdaptSerialNoEdit");
+    // var id = $("#id");
+    selectedRowData = table.row('.selected').data();
+    var id = selectedRowData.id;
+    var netId = $("#netId");
+    var lastName = $("#lastName");
+    var firstName = $("#firstName");
+    var preferredName = $("#preferredName");
+    var dukeEmail = $("#dukeEmail");
+    var altEmail = $("#altEmail");
+    var laptopSN = $("#laptopSN");
+    var powerAdapterSN = $("#powerAdapterSN");
+    var programYear = $("#programYear");
     // Don't do anything if the name fields hasn't been filled out
     if (
-      !serialInput
+      !netId
       .val()
-      .trim()
       .trim() ||
-      !powerAdaptserialInput
+      !lastName
       .val()
-      .trim()
+      .trim() ||
+      !firstName
+      .val()
+      .trim() ||
+      !dukeEmail
+      .val()
+      .trim() ||
+      !programYear
+      .val()
       .trim()
     ) {
-      alert("Enter fields!");
+      alert("Enter Required fields!");
       return;
     }
-    // Calling the upsertInventory function and passing in the value of the name input
-    updateInventory({
-      sn: serialInput.val().trim(),
-      powerAdapterSN: powerAdaptserialInput.val().trim()
+    //Calling the upsertStudent function and passing in the value of the name input
+    updateStudent({
+      netId: netId.val().trim(),
+      lastName: lastName.val().trim(),
+      firstName: firstName.val().trim(),
+      preferredName: preferredName.val().trim(),
+      dukeEmail: dukeEmail.val().trim(),
+      altEmail: altEmail.val().trim(),
+      laptopSN: laptopSN.val().trim(),
+      powerAdapterSN: powerAdapterSN.val().trim(),
+      programYear: programYear.val().trim()
     });
 
     //hide Modal
@@ -207,24 +234,38 @@ $(document).ready(function () {
   }
 
 
-  //Edit Inventory 
+  // Edit Student 
   function renderEditPopup() {
-    var listItemData = $(this)
-      .parent("td")
-      .parent("tr")
-      .data("inventory");
-    console.log($(listItemData));
-    $("#serialNoEdit").val(listItemData.sn);
-    $("#powerAdaptSerialNoEdit").val(listItemData.powerAdapterSN);
+    console.log(table.row('.selected').data());
+    selectedRowData = table.row('.selected').data();
+    $("#netId").val(selectedRowData.netId);
+    $("#lastName").val(selectedRowData.lastName);
+    $("#firstName").val(selectedRowData.firstName);
+    $("#preferredName").val(selectedRowData.preferredName);
+    $("#dukeEmail").val(selectedRowData.dukeEmail);
+    $("#altEmail").val(selectedRowData.altEmail);
+    $("#laptopSN").val(selectedRowData.laptopSN);
+    $("#powerAdapterSN").val(selectedRowData.powerAdapterSN);
+    $("#programYear").val(selectedRowData.programYear);
   }
 
-  function updateInventory(data) {
+  function updateStudent(data) {
+    console.log("updating..");
+    console.log(data);
+
     $.ajax({
       method: "PUT",
-      url: "/api/admin",
+      url: "/api/student",
       data: data
     }).then(function () {
-      getInventories();
+      //getStudents();
+      dataSet = [];
+      $.get("/api/students", function (data) {
+        for (var i = 0; i < data.length; i++) {
+          dataSet.push(createStudentRow(data[i]));
+        }
+        table.draw();
+      });
     });
   }
 });
