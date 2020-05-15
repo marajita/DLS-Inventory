@@ -1,5 +1,10 @@
-module.exports = function(sequelize, DataTypes) {
-  var Student = sequelize.define("Student", {
+module.exports = function (Sequelize, DataTypes) {
+  var Student = Sequelize.define("Student", {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     netId: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       len: [20]
     },
-    
+
     laptopSN: {
       type: DataTypes.STRING,
       allowNull: true,

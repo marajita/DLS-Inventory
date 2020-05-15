@@ -18,13 +18,16 @@
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
   <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/2.2.2/js/dataTables.responsive.min.js"></script> 
-  <script src="js/altEditor/dataTables.altEditor.free.js"></script> 
+  <script src="https://cdn.datatables.net/responsive/2.2.2/js/dataTables.responsive.min.js"></script>
+  <script src="js/altEditor/dataTables.altEditor.free.js"></script>
 
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.2/css/responsive.dataTables.min.css"/> 
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.2/css/responsive.dataTables.min.css" />
 
 
   <!-- Bootstrap JS -->
@@ -70,6 +73,11 @@
           </div>
         </div>
       </nav>
+      <div>
+        <button type="button" class="btn btn-dark add-student" data-toggle="modal" data-target="#addStudentModal">
+          Add New Student
+        </button>
+      </div>
       <table id="studentTable" class="table table-striped table-bordered table-sm" width="100%">
         <tfoot>
           <tr>
@@ -91,81 +99,159 @@
     </div>
   </div>
 
-  <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editStudentModalLabel">Edit Student Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group row">
-            <label for="serialNo" class="col-sm-2 col-form-label">Net ID</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="netId">
+  <!-- Add Student -->
+  <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="studentModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addStudentModalLabel">Student Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+              <label for="serialNo" class="col-sm-2 col-form-label">Net ID</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="netIdAdd">
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Last Name</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="lastName">
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Last Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="lastNameAdd">
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">First Name</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="firstName">
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">First Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="firstNameAdd">
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Preferred Name</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="preferredName">
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Preferred Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="preferredNameAdd">
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Duke Email</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="dukeEmail">
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Duke Email</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="dukeEmailAdd">
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Alternate Email</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="altEmail">
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Alternate Email</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="altEmailAdd">
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Laptop SN</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="laptopSN">
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Laptop SN</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="laptopSNAdd">
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Power Adapter SN</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="powerAdapterSN">
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Power Adapter SN</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="powerAdapterSNAdd">
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Program Year</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="programYear">
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Program Year</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="programYearAdd">
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="editStudent">Save changes</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="addStudent">Save changes</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  <!-- Edit Student -->
+  <div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="studentModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editStudentModalLabel">Student Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group row">
+              <label for="serialNo" class="col-sm-2 col-form-label">Net ID</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="netIdEdit">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Last Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="lastNameEdit">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">First Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="firstNameEdit">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Preferred Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="preferredNameEdit">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Duke Email</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="dukeEmailEdit">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Alternate Email</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="altEmailEdit">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Laptop SN</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="laptopSNEdit">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Power Adapter SN</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="powerAdapterSNEdit">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="powerAdaptSerialNo" class="col-sm-2 col-form-label">Program Year</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="programYearEdit">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="editStudent">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
