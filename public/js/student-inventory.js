@@ -82,8 +82,8 @@ function initializeDatatable() {
         title: "Program Year"
       },
       {
-        data: "action",
-        title: "Action"
+        data: "edit",
+        title: "Edit"
       }
     ],
     select: "single",
@@ -273,6 +273,7 @@ function createStudentRow(student) {
   studentData.powerAdapterSN = student.powerAdapterSN;
   studentData.programYear = student.programYear;
   studentData.data = student;
-  studentData.action = "<i style='cursor:pointer' class='far fa-edit edit-student' data-toggle='modal' data-target='#editStudentModal'></i> &nbsp &nbsp | &nbsp &nbsp <i style='cursor:pointer' class='far fa-trash-alt delete-student'></i>";
+  studentData.edit = "<i style='cursor:pointer' class='far fa-edit edit-student' data-toggle='modal' data-target='#editStudentModal'></i>";
   return studentData
 }
+// &nbsp &nbsp | &nbsp &nbsp <i style='cursor:pointer' class='far fa-trash-alt delete-student'></i>
